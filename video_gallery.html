@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Gallery - Jedna Production</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       body {
+            font-family: 'Mitr', 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+       }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b35;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b35;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff6b35;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid #ff6b35;
+            color: #ff6b35;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        /* Header Section */
+        .header {
+            padding: 120px 0 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #000 100%);
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Buttons */
+        .filter-container {
+            text-align: center;
+            padding: 40px 0;
+            background: #0a0a0a;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid #ff6b35;
+            color: #ff6b35;
+            cursor: pointer;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #ff6b35;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Video Gallery */
+        .video-gallery {
+            padding: 40px 40px 100px;
+            background: #0a0a0a;
+        }
+
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .video-item {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .video-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: #ff6b35;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-item:hover .video-container video {
+            transform: scale(1.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .video-container:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 107, 53, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background: #ff6b35;
+            transform: scale(1.1);
+        }
+
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid #000;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 4px;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .video-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255, 107, 53, 0.2);
+            color: #ff6b35;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 107, 53, 0.4);
+            margin-bottom: 10px;
+        }
+
+        .video-description {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+                .video-link {
+            display: inline-block;
+            padding: 8px 15px;
+            background: rgba(255, 107, 53, 0.1);
+            color: #ff6b35;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .video-link:hover {
+            background: rgba(255, 107, 53, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Video Modal */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .video-modal.show {
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .modal-video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 90vw;
+    max-height: 80vh;
+}
+
+.modal-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+        .modal-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn:hover {
+            background: #ff6b35;
+            transform: scale(1.1);
+        }
+
+        .close-btn::after {
+            content: '✕';
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .fullscreen-btn::after {
+            content: '⛶';
+            font-size: 16px;
+        }
+
+        .modal-info {
+            padding: 20px;
+            background: #111;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .modal-category {
+            display: inline-block;
+            padding: 6px 15px;
+            background: rgba(255, 107, 53, 0.2);
+            color: #ff6b35;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 107, 53, 0.4);
+            margin-bottom: 15px;
+        }
+
+        .modal-description {
+            color: #ccc;
+            line-height: 1.6;
+        }
+        .modal-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;  /* เพิ่ม z-index ให้สูงกว่า video */
+}
+
+.modal-btn {
+    pointer-events: auto; /* ป้องกัน video ดักคลิก */
+}
+
+        
+    /* ปรับให้รูปปกหรือวิดีโอไม่ล้น */
+    .video-container img,
+    .video-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;   /* ใช้ cover ให้เต็มกรอบ */
+        display: block;
+    }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .video-gallery {
+                padding: 20px;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .filter-buttons {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+        /* ลบเส้นใต้ */
+        .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff6b35;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-decoration: none; /* ลบเส้นใต้ */
+}
+
+
+        /* Animation for filter */
+        .video-item {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .video-item.hide {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="JEDNA.html" class="logo">Jedna Production</a>
+            <a href="JEDNA.html" class="back-button">
+                ← กลับหน้าแรก
+            </a>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="header">
+        <h1>ผลงานวีดิโอ</h1>
+        <p>รวมผลงานวีดิโอคุณภาพสูงทุกประเภท ตั้งแต่โฆษณา มิวสิควีดิโอ สารคดี และอีเว้นต์ต่างๆ</p>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-container">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+            <button class="filter-btn" data-filter="หนังสั้น">หนังสั้น</button>
+            <button class="filter-btn" data-filter="มิวสิค">มิวสิค</button>
+            <button class="filter-btn" data-filter="documentary">สารคดี</button>
+            <button class="filter-btn" data-filter="vlog">วีล็อก</button>
+            <button class="filter-btn" data-filter="event">อีเว้นต์</button>
+            <button class="filter-btn" data-filter="corporate">องค์กร</button>
+        </div>
+    </section>
+
+    <!-- Video Gallery -->
+    <section class="video-gallery" id="gallery">
+        <div class="gallery-container">
+            <div class="video-grid">
+                <!-- Commercial Video -->
+<div class="video-item" data-category="หนังสั้น">
+    <div class="video-container" onclick="openVideoModal('https://drive.google.com/file/d/1-jMpcApuwj8X5MfiWM8B9XAzSsBevMhS/view?usp=sharing', 'ไฟต์สุดท้าย Last Bout', 'หนังสั้น', 'มิวสิควิดีโอที่เต็มไปด้วยความคิดสร้างสรรค์ สื่อถึงอารมณ์และจังหวะของเพลง')">
+        <img src="https://i.ibb.co/Y4bm92yG/image.png" alt="ปก YouTube">
+        <div class="play-overlay">
+            <div class="play-button"></div>
+        </div>
+    </div>
+    <div class="video-info">
+        <div class="video-category">หนังสั้น</div>
+        <h3 class="video-title">ไฟต์สุดท้าย Last Bout</h3>
+        <p class="video-description">Short Film by. Jedna Production</p>
+        <div class="video-links">
+                            <a href="https://www.youtube.com/watch?v=-A8LKJcPT2E" class="video-link" target="_blank">YouTube</a>
+
+                        </div>
+    </div>
+</div>
+
+                <!-- Music Video -->
+<div class="video-item" data-category="มิวสิค">
+    <div class="video-container" onclick="openVideoModal('https://drive.google.com/file/d/1k8sCTM0xZoT14BwTkHZGlZs8F2eztpYf/view?usp=sharing', 'ความฮักคือการให้ - บิว สงกรานต์ [ Cover MV ]', 'หนังสั้น', 'มิวสิควิดีโอที่เต็มไปด้วยความคิดสร้างสรรค์ สื่อถึงอารมณ์และจังหวะของเพลง')">
+        <img src="https://i.ibb.co/601fkH5F/MV.png" alt="ปก YouTube">
+        <div class="play-overlay">
+            <div class="play-button"></div>
+        </div>
+    </div>
+    <div class="video-info">
+        <div class="video-category">มิวสิค</div>
+        <h3 class="video-title">ความฮักคือการให้ - บิว สงกรานต์ [ Cover MV ]</h3>
+        <p class="video-description">by. Jedna Production</p>
+        <div class="video-links">
+                            <a href="https://www.youtube.com/watch?v=5Z9aM2woFdI" class="video-link" target="_blank">YouTube</a>
+
+                        </div>
+    </div>
+</div>
+
+
+<!-- Documentary -->
+<div class="video-item" data-category="หนังสั้น">
+    <div class="video-container" 
+         onclick="openVideoModal('https://drive.google.com/file/d/1skYrEmJmsHnhhRIVdqEfsmewmCKwyAd6/view?usp=sharing', 'INFORMAL DEBT (หนี้นอกระบบ)', 'หนังสั้น', 'สารคดีที่นำเสนอเรื่องราวที่มีความหมาย ด้วยเทคนิคการถ่ายทำระดับมืออาชีพ', true)">
+        <img src="https://i.ibb.co/0RK9TnXB/511295008-1432612858090820-6098386459015732828-n.jpg" alt="ปกวิดีโอ" class="video-cover">
+        <div class="play-overlay">
+            <div class="play-button"></div>
+        </div>
+    </div>
+    <div class="video-info">
+        <div class="video-category">หนังสั้น</div>
+        <h3 class="video-title">INFORMAL DEBT (หนี้นอกระบบ)</h3>
+        <p class="video-description">Short Film by. Jedna Production</p>
+                                    <a href="https://www.youtube.com/watch?v=GGHmVqOZv-8&t=703s" class="video-link" target="_blank">YouTube</a>
+
+                        </div>
+    </div>
+</div>
+
+
+                <!-- Vlog -->
+                <div class="video-item" data-category="vlog">
+                    <div class="video-container" onclick="openVideoModal('https://sample-videos.com/zip/10/mp4/360/SampleVideo_360x240_2mb.mp4', 'วีล็อกเที่ยวเมือง', 'vlog', 'บันทึกการเดินทางและประสบการณ์ใหม่ๆ ในสไตล์ที่เป็นธรรมชาติและน่าติดตาม')">
+                        <video muted loop>
+                            <source src="https://sample-videos.com/zip/10/mp4/360/SampleVideo_360x240_2mb.mp4" type="video/mp4">
+                        </video>
+                        <div class="play-overlay">
+                            <div class="play-button"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-category">วีล็อก</div>
+                        <h3 class="video-title">วีล็อกเที่ยวเมือง</h3>
+                        <p class="video-description">บันทึกการเดินทางและประสบการณ์ใหม่ๆ ในสไตล์ที่เป็นธรรมชาติและน่าติดตาม</p>
+                    </div>
+                </div>
+
+                <!-- Event -->
+                <div class="video-item" data-category="event">
+                    <div class="video-container" onclick="openVideoModal('https://sample-videos.com/zip/10/mp4/480/SampleVideo_480x270_1mb.mp4', 'งานคอนเสิร์ตใหญ่', 'event', 'บันทึกช่วงเวลาสำคัญในงานต่างๆ ด้วยมุมมองที่สวยงามและประทับใจ')">
+                        <video muted loop>
+                            <source src="https://sample-videos.com/zip/10/mp4/480/SampleVideo_480x270_1mb.mp4" type="video/mp4">
+                        </video>
+                        <div class="play-overlay">
+                            <div class="play-button"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-category">อีเว้นต์</div>
+                        <h3 class="video-title">งานคอนเสิร์ตใหญ่</h3>
+                        <p class="video-description">บันทึกช่วงเวลาสำคัญในงานต่างๆ ด้วยมุมมองที่สวยงามและประทับใจ</p>
+                    </div>
+                </div>
+
+                <!-- Corporate -->
+                <div class="video-item" data-category="corporate">
+                    <div class="video-container" onclick="openVideoModal('https://sample-videos.com/zip/10/mp4/720/SampleVideo_720x480_2mb.mp4', 'วีดิโอนำเสนอองค์กร', 'corporate', 'วีดิโอนำเสนอองค์กรที่สร้างความน่าเชื่อถือและภาพลักษณ์ที่ดี')">
+                        <video muted loop>
+                            <source src="https://sample-videos.com/zip/10/mp4/720/SampleVideo_720x480_2mb.mp4" type="video/mp4">
+                        </video>
+                        <div class="play-overlay">
+                            <div class="play-button"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-category">องค์กร</div>
+                        <h3 class="video-title">วีดิโอนำเสนอองค์กร</h3>
+                        <p class="video-description">วีดิโอนำเสนอองค์กรที่สร้างความน่าเชื่อถือและภาพลักษณ์ที่ดี</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <div class="modal-controls">
+                <button class="modal-btn close-btn" onclick="closeVideoModal()"></button>
+            </div>
+            <div class="modal-video-wrapper">
+                <iframe id="modalIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="modal-info">
+                <div class="modal-category" id="modalCategory"></div>
+                <h3 class="modal-title" id="modalTitle"></h3>
+                <p class="modal-description" id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const videoItems = document.querySelectorAll('.video-item');
+
+            // Auto-play videos on hover
+            videoItems.forEach(item => {
+                const video = item.querySelector('video');
+                
+                item.addEventListener('mouseenter', () => {
+                    video.play();
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            });
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter videos
+                    videoItems.forEach(item => {
+                        const category = item.getAttribute('data-category');
+                        
+                        if (filter === 'all' || category === filter) {
+                            item.classList.remove('hide');
+                        } else {
+                            item.classList.add('hide');
+                        }
+                    });
+                });
+            });
+        });
+
+        // Video Modal Functions
+        function openVideoModal(videoSrc, title, category, description) {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalCategory = document.getElementById('modalCategory');
+            const modalDescription = document.getElementById('modalDescription');
+            
+            modalVideo.src = videoSrc;
+            modalTitle.textContent = title;
+            modalCategory.textContent = getCategoryName(category);
+            modalDescription.textContent = description;
+            
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show'), 10);
+            
+            // Pause background videos
+            document.querySelectorAll('.video-container video').forEach(video => {
+                video.pause();
+            });
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            modal.classList.remove('show');
+            modalVideo.pause();
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modalVideo.src = '';
+            }, 300);
+        }
+
+        function toggleFullscreen() {
+            const modalVideo = document.getElementById('modalVideo');
+            
+            if (!document.fullscreenElement) {
+                modalVideo.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function getCategoryName(category) {
+            const categoryNames = {
+                'หนังสั้น': 'หนังสั้น',
+                'มิวสิค': 'มิวสิค',
+                'documentary': 'สารคดี',
+                'vlog': 'วีล็อก',
+                'event': 'อีเว้นต์',
+                'corporate': 'องค์กร'
+            };
+            return categoryNames[category] || category;
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.98)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        function openVideoModal(videoSrc, title, category, description) {
+    const modal = document.getElementById('videoModal');
+    const modalIframe = document.getElementById('modalIframe');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCategory = document.getElementById('modalCategory');
+    const modalDescription = document.getElementById('modalDescription');
+
+    let embedSrc = '';
+
+    // แปลง YouTube URL -> embed
+    if (videoSrc.includes("youtube.com") || videoSrc.includes("youtu.be")) {
+        let videoId = "";
+        if (videoSrc.includes("v=")) {
+            videoId = videoSrc.split("v=")[1].split("&")[0];
+        } else {
+            // สำหรับลิงก์แบบ youtu.be/xxxx
+            videoId = videoSrc.split("/").pop().split("?")[0];
+        }
+        embedSrc = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
+
+    // ✨ NEW: ส่วนที่เพิ่มเข้ามาสำหรับ Google Drive ✨
+    } else if (videoSrc.includes("drive.google.com")) {
+        // ดึงเอา File ID จาก URL
+        // ตัวอย่าง: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+        const fileId = videoSrc.split('/d/')[1].split('/')[0];
+        embedSrc = "https://drive.google.com/file/d/" + fileId + "/preview";
+        
+    // สำหรับลิงก์วิดีโออื่นๆ ที่เป็นไฟล์ตรง
+    } else {
+        embedSrc = videoSrc;
+    }
+
+    modalIframe.src = embedSrc;
+    modalTitle.textContent = title;
+    modalCategory.textContent = category; // แก้ไขให้ใช้ชื่อหมวดหมู่ที่ส่งมา
+    modalDescription.textContent = description;
+
+    modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('show'), 10);
+}
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const modalIframe = document.getElementById('modalIframe');
+
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modalIframe.src = "";
+            }, 300);
+        }
+
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) closeVideoModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeVideoModal();
+        });
+    </script>
+</body>
+</html>
