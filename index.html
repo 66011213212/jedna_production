@@ -160,7 +160,6 @@
             overflow: hidden; 
         }
 
-        /* --- START: โค้ดสำหรับสไลด์โชว์พื้นหลัง --- */
         .hero-slideshow {
             position: absolute;
             top: 0;
@@ -170,7 +169,7 @@
             z-index: 1;
         }
 
-        .hero-slideshow::after { /* Overlay สีดำทับรูปเพื่อให้ข้อความอ่านง่าย */
+        .hero-slideshow::after {
             content: '';
             position: absolute;
             top: 0;
@@ -190,11 +189,10 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            animation: imageFade 24s infinite; /* 4 รูป รูปละ 6 วินาที */
+            animation: imageFade 24s infinite;
             z-index: 1;
         }
 
-        /* หน่วงเวลาให้แต่ละรูปสลับกันแสดง */
         .hero-slideshow .slide:nth-child(1) { animation-delay: 0s; }
         .hero-slideshow .slide:nth-child(2) { animation-delay: 6s; }
         .hero-slideshow .slide:nth-child(3) { animation-delay: 12s; }
@@ -207,7 +205,6 @@
             33% { opacity: 0; transform: scale(1.1); }
             100% { opacity: 0; }
         }
-        /* --- END: โค้ดสำหรับสไลด์โชว์พื้นหลัง --- */
         
         .hero-content { 
             text-align: center; 
@@ -433,7 +430,6 @@
                 transition: all 0.3s ease-in-out;
             }
             
-            /* --- CSS สำหรับเมนูเมื่อถูกเปิด --- */
             .hamburger-menu.open .bar:nth-child(1) {
                 transform: rotate(45deg) translate(7px, 7px);
             }
@@ -464,6 +460,28 @@
             .nav-menu-container.open {
                 right: 0;
             }
+            
+            /* --- START: CSS สำหรับปุ่มปิด (X) --- */
+            .close-menu-btn {
+                position: absolute;
+                top: 15px;
+                right: 25px;
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 2.5rem; /* ปรับขนาดกากบาท */
+                font-weight: 300;
+                cursor: pointer;
+                line-height: 1;
+                transition: color 0.3s ease, transform 0.3s ease;
+            }
+
+            .close-menu-btn:hover {
+                color: #ff6b35;
+                transform: rotate(90deg);
+            }
+            /* --- END: CSS สำหรับปุ่มปิด (X) --- */
+
 
             .nav-menu-container .mobile-nav-links {
                 display: flex;
@@ -549,6 +567,7 @@
 </nav>
 
 <div class="nav-menu-container" id="navMenuContainer">
+    <button class="close-menu-btn" id="closeMenuBtn" aria-label="Close menu">&times;</button>
     <ul class="mobile-nav-links">
         <li><a href="#home">หน้าแรก</a></li>
         <li><a href="#portfolio">ผลงาน</a></li>
@@ -630,34 +649,49 @@
                 }
             });
             
-            // Hamburger Menu Functionality
+            // --- START: โค้ดสำหรับเมนูบนมือถือ ---
             const hamburgerMenu = document.getElementById('hamburgerMenu');
             const navMenuContainer = document.getElementById('navMenuContainer');
             const navLinksInMenu = navMenuContainer.querySelectorAll('a');
+            const closeMenuBtn = document.getElementById('closeMenuBtn'); // <--- เพิ่มตัวแปรปุ่มปิด
 
+            // Function สำหรับเปิดเมนู
+            function openMobileMenu() {
+                navMenuContainer.classList.add('open');
+                hamburgerMenu.classList.add('open');
+            }
+
+            // Function สำหรับปิดเมนู
+            function closeMobileMenu() {
+                navMenuContainer.classList.remove('open');
+                hamburgerMenu.classList.remove('open');
+            }
+
+            // เมื่อคลิกปุ่ม Hamburger
             hamburgerMenu.addEventListener('click', function() {
-                navMenuContainer.classList.toggle('open');
-                this.classList.toggle('open');
-            });
-            
-            navLinksInMenu.forEach(link => {
-                link.addEventListener('click', function() {
-                    if (navMenuContainer.classList.contains('open')) {
-                        navMenuContainer.classList.remove('open');
-                        hamburgerMenu.classList.remove('open');
-                    }
-                });
+                // ถ้าเมนูยังไม่เปิด ให้เปิด, ถ้าเปิดอยู่แล้ว ให้ปิด
+                if (navMenuContainer.classList.contains('open')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
             });
 
-            // ปิดเมนูเมื่อคลิกนอกกรอบ
+            // เมื่อคลิกที่ปุ่มปิด (X)
+            closeMenuBtn.addEventListener('click', closeMobileMenu);
+            
+            // เมื่อคลิกที่ลิงก์ในเมนู
+            navLinksInMenu.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            // เมื่อคลิกนอกกรอบเมนู
             document.addEventListener('click', function(event) {
-                // ตรวจสอบว่าเมนูเปิดอยู่ และไม่ได้คลิกที่ตัวเมนู หรือ ปุ่ม hamburger
                 const isClickInsideMenu = navMenuContainer.contains(event.target);
                 const isClickOnHamburger = hamburgerMenu.contains(event.target);
 
                 if (navMenuContainer.classList.contains('open') && !isClickInsideMenu && !isClickOnHamburger) {
-                    navMenuContainer.classList.remove('open');
-                    hamburgerMenu.classList.remove('open');
+                    closeMobileMenu();
                 }
             });
         });
