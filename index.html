@@ -597,7 +597,6 @@
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    // ป้องกันการทำงานปกติของลิงก์ ถ้าไม่ใช่ dropdown
                     if (!this.closest('.dropdown')) {
                         e.preventDefault();
                         const targetId = this.getAttribute('href');
@@ -637,12 +636,10 @@
             const navLinksInMenu = navMenuContainer.querySelectorAll('a');
 
             hamburgerMenu.addEventListener('click', function() {
-                // สลับคลาสเพื่อเปิด/ปิดเมนู และเปลี่ยนไอคอน
                 navMenuContainer.classList.toggle('open');
                 this.classList.toggle('open');
             });
             
-            // ปิดเมนูเมื่อคลิกลิงก์
             navLinksInMenu.forEach(link => {
                 link.addEventListener('click', function() {
                     if (navMenuContainer.classList.contains('open')) {
@@ -650,6 +647,18 @@
                         hamburgerMenu.classList.remove('open');
                     }
                 });
+            });
+
+            // ปิดเมนูเมื่อคลิกนอกกรอบ
+            document.addEventListener('click', function(event) {
+                // ตรวจสอบว่าเมนูเปิดอยู่ และไม่ได้คลิกที่ตัวเมนู หรือ ปุ่ม hamburger
+                const isClickInsideMenu = navMenuContainer.contains(event.target);
+                const isClickOnHamburger = hamburgerMenu.contains(event.target);
+
+                if (navMenuContainer.classList.contains('open') && !isClickInsideMenu && !isClickOnHamburger) {
+                    navMenuContainer.classList.remove('open');
+                    hamburgerMenu.classList.remove('open');
+                }
             });
         });
     </script>
