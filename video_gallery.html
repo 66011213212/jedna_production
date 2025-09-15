@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Gallery - Jedna Production</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -498,7 +502,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="nav">
         <div class="nav-content">
             <a href="index.html" class="logo">Jedna Production</a>
@@ -508,13 +511,11 @@
         </div>
     </nav>
 
-    <!-- Header Section -->
     <section class="header">
         <h1>ผลงานวีดิโอ</h1>
         <p>รวมผลงานวีดิโอคุณภาพสูงทุกประเภท ตั้งแต่โฆษณา มิวสิควีดิโอ สารคดี และอีเว้นต์ต่างๆ</p>
     </section>
 
-    <!-- Filter Section -->
     <section class="filter-container">
         <div class="filter-buttons">
             <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
@@ -527,12 +528,10 @@
         </div>
     </section>
 
-    <!-- Video Gallery -->
     <section class="video-gallery" id="gallery">
         <div class="gallery-container">
             <div class="video-grid">
-                <!-- Commercial Video -->
-<div class="video-item" data-category="หนังสั้น">
+                <div class="video-item" data-category="หนังสั้น">
     <div class="video-container" onclick="openVideoModal('https://drive.google.com/file/d/1-jMpcApuwj8X5MfiWM8B9XAzSsBevMhS/view?usp=sharing', 'ไฟต์สุดท้าย Last Bout', 'หนังสั้น', 'มิวสิควิดีโอที่เต็มไปด้วยความคิดสร้างสรรค์ สื่อถึงอารมณ์และจังหวะของเพลง')">
         <img src="https://i.ibb.co/Y4bm92yG/image.png" alt="ปก YouTube">
         <div class="play-overlay">
@@ -550,8 +549,7 @@
     </div>
 </div>
 
-                <!-- Music Video -->
-<div class="video-item" data-category="มิวสิค">
+                <div class="video-item" data-category="มิวสิค">
     <div class="video-container" onclick="openVideoModal('https://drive.google.com/file/d/1k8sCTM0xZoT14BwTkHZGlZs8F2eztpYf/view?usp=sharing', 'ความฮักคือการให้ - บิว สงกรานต์ [ Cover MV ]', 'หนังสั้น', 'มิวสิควิดีโอที่เต็มไปด้วยความคิดสร้างสรรค์ สื่อถึงอารมณ์และจังหวะของเพลง')">
         <img src="https://i.ibb.co/601fkH5F/MV.png" alt="ปก YouTube">
         <div class="play-overlay">
@@ -570,7 +568,6 @@
 </div>
 
 
-<!-- Documentary -->
 <div class="video-item" data-category="หนังสั้น">
     <div class="video-container" 
          onclick="openVideoModal('https://drive.google.com/file/d/1skYrEmJmsHnhhRIVdqEfsmewmCKwyAd6/view?usp=sharing', 'INFORMAL DEBT (หนี้นอกระบบ)', 'หนังสั้น', 'สารคดีที่นำเสนอเรื่องราวที่มีความหมาย ด้วยเทคนิคการถ่ายทำระดับมืออาชีพ', true)">
@@ -590,7 +587,6 @@
 </div>
 
 
-                <!-- Vlog -->
                 <div class="video-item" data-category="vlog">
                     <div class="video-container" onclick="openVideoModal('https://sample-videos.com/zip/10/mp4/360/SampleVideo_360x240_2mb.mp4', 'วีล็อกเที่ยวเมือง', 'vlog', 'บันทึกการเดินทางและประสบการณ์ใหม่ๆ ในสไตล์ที่เป็นธรรมชาติและน่าติดตาม')">
                         <video muted loop>
@@ -607,7 +603,6 @@
                     </div>
                 </div>
 
-                <!-- Event -->
                 <div class="video-item" data-category="event">
                     <div class="video-container" onclick="openVideoModal('https://sample-videos.com/zip/10/mp4/480/SampleVideo_480x270_1mb.mp4', 'งานคอนเสิร์ตใหญ่', 'event', 'บันทึกช่วงเวลาสำคัญในงานต่างๆ ด้วยมุมมองที่สวยงามและประทับใจ')">
                         <video muted loop>
@@ -624,7 +619,6 @@
                     </div>
                 </div>
 
-                <!-- Corporate -->
                 <div class="video-item" data-category="corporate">
                     <div class="video-container" onclick="openVideoModal('https://sample-videos.com/zip/10/mp4/720/SampleVideo_720x480_2mb.mp4', 'วีดิโอนำเสนอองค์กร', 'corporate', 'วีดิโอนำเสนอองค์กรที่สร้างความน่าเชื่อถือและภาพลักษณ์ที่ดี')">
                         <video muted loop>
@@ -644,7 +638,6 @@
         </div>
     </section>
 
-    <!-- Video Modal -->
     <div class="video-modal" id="videoModal">
         <div class="modal-content">
             <div class="modal-controls">
