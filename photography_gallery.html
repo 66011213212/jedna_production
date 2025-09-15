@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery - Jedna Production</title>
+    <style>
+        /* --- General Styles (เหมือนเว็บเดิม) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       body {
+            font-family: 'Mitr', 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+       }
+
+        /* --- Navigation (เหมือนเว็บเดิม) --- */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050; /* เพิ่ม z-index ให้อยู่เหนือทุกอย่าง */
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b35;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid #ff6b35;
+            color: #ff6b35;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .back-button:hover {
+            background: #ff6b35;
+            color: #000;
+        }
+
+        /* --- Header Section (สไตล์เดียวกับ Video Gallery) --- */
+        .header {
+            padding: 120px 40px 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #000 100%);
+        }
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- Filter Buttons (สไตล์เดียวกับ Video Gallery) --- */
+        .filter-container {
+            text-align: center;
+            padding: 40px 20px;
+            background: #0a0a0a;
+        }
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 12px 25px;
+            background: transparent;
+            border: 2px solid #ff6b35;
+            color: #ff6b35;
+            cursor: pointer;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: #ff6b35;
+            color: #000;
+        }
+
+        /* --- Photo Gallery Grid --- */
+        .photo-gallery {
+            padding: 40px 40px 100px;
+            background: #0a0a0a;
+        }
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .photo-item {
+            background: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.6s ease-out;
+        }
+        .photo-item.hide { display: none; }
+        .photo-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: #ff6b35;
+        }
+        .photo-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .photo-item:hover img {
+            transform: scale(1.05);
+        }
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: #fff;
+        }
+        .photo-overlay h3 {
+            margin: 0 0 5px;
+            font-size: 1.2rem;
+        }
+        .photo-overlay p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* --- Lightbox Modal (สำหรับดูรูปเต็มจอ) --- */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none; /* เปลี่ยนเป็น flex เมื่อเปิด */
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+        }
+        .lightbox-info {
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+        }
+        .lightbox-title { font-size: 1.2rem; }
+        .lightbox-counter { color: #ccc; font-size: 0.9rem; }
+
+        .lightbox-close, .lightbox-prev, .lightbox-next {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            z-index: 2010;
+        }
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+            background: #ff6b35;
+        }
+        .lightbox-close {
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+        }
+        .lightbox-prev, .lightbox-next {
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        .lightbox-prev { left: 15px; }
+        .lightbox-next { right: 15px; }
+
+        /* --- Responsive & Animations --- */
+        @media (max-width: 768px) {
+            .nav { padding: 15px 20px; }
+            .photo-gallery { padding: 20px; }
+            .photo-grid { grid-template-columns: 1fr; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo">Jedna Production</a>
+            <a href="index.html" class="back-button">← กลับหน้าแรก</a>
+        </div>
+    </nav>
+
+    <section class="header">
+        <h1>ผลงานภาพนิ่ง</h1>
+        <p>รวมผลงานภาพนิ่งหลากหลายสไตล์ ทั้งภาพบุคคล งานพิธี และโปรเจกต์สร้างสรรค์ต่างๆ</p>
+    </section>
+
+    <section class="filter-container">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+            <button class="filter-btn" data-filter="portrait">พอร์ตเทรต</button>
+            <button class="filter-btn" data-filter="wedding">งานแต่ง</button>
+            <button class="filter-btn" data-filter="street">สตรีท</button>
+            <button class="filter-btn" data-filter="event">งานอีเว้นต์</button>
+        </div>
+    </section>
+
+    <section class="photo-gallery">
+        <div class="gallery-container">
+            <div class="photo-grid">
+
+                <div class="photo-item" 
+                     data-category="portrait"
+                     data-album-title="เซ็ตพอร์ตเทรตในเมือง"
+                     data-images="https://source.unsplash.com/random/1200x800?portrait,city,1, https://source.unsplash.com/random/1200x800?portrait,city,2, https://source.unsplash.com/random/1200x800?portrait,city,3">
+                    <img src="https://source.unsplash.com/random/600x400?portrait,city,1" alt="Portrait Set 1">
+                    <div class="photo-overlay">
+                        <h3>พอร์ตเทรตในเมือง</h3>
+                        <p>3 รูปภาพ</p>
+                    </div>
+                </div>
+
+                <div class="photo-item" 
+                     data-category="wedding"
+                     data-album-title="พรีเวดดิ้งริมทะเล"
+                     data-images="https://source.unsplash.com/random/1200x800?wedding,beach,1, https://source.unsplash.com/random/1200x800?wedding,beach,2, https://source.unsplash.com/random/1200x800?wedding,beach,3, https://source.unsplash.com/random/1200x800?wedding,beach,4">
+                    <img src="https://source.unsplash.com/random/600x400?wedding,beach,1" alt="Wedding Set 1">
+                    <div class="photo-overlay">
+                        <h3>พรีเวดดิ้งริมทะเล</h3>
+                        <p>4 รูปภาพ</p>
+                    </div>
+                </div>
+
+                <div class="photo-item" 
+                     data-category="street"
+                     data-album-title="ชีวิตในเยาวราช"
+                     data-images="https://source.unsplash.com/random/1200x800?street,bangkok,1, https://source.unsplash.com/random/1200x800?street,bangkok,2, https://source.unsplash.com/random/1200x800?street,bangkok,3, https://source.unsplash.com/random/1200x800?street,bangkok,4, https://source.unsplash.com/random/1200x800?street,bangkok,5">
+                    <img src="https://source.unsplash.com/random/600x400?street,bangkok,1" alt="Street Set 1">
+                    <div class="photo-overlay">
+                        <h3>ชีวิตในเยาวราช</h3>
+                        <p>5 รูปภาพ</p>
+                    </div>
+                </div>
+
+                <div class="photo-item" 
+                     data-category="event"
+                     data-album-title="คอนเสิร์ต Rock Festival"
+                     data-images="https://source.unsplash.com/random/1200x800?concert,event,1, https://source.unsplash.com/random/1200x800?concert,event,2">
+                    <img src="https://source.unsplash.com/random/600x400?concert,event,1" alt="Event Set 1">
+                    <div class="photo-overlay">
+                        <h3>คอนเสิร์ต Rock Festival</h3>
+                        <p>2 รูปภาพ</p>
+                    </div>
+                </div>
+                
+                 <div class="photo-item" 
+                     data-category="portrait"
+                     data-album-title="พอร์ตเทรตกับธรรมชาติ"
+                     data-images="https://source.unsplash.com/random/1200x800?portrait,nature,1, https://source.unsplash.com/random/1200x800?portrait,nature,2, https://source.unsplash.com/random/1200x800?portrait,nature,3, https://source.unsplash.com/random/1200x800?portrait,nature,4">
+                    <img src="https://source.unsplash.com/random/600x400?portrait,nature,1" alt="Portrait Set 2">
+                    <div class="photo-overlay">
+                        <h3>พอร์ตเทรตกับธรรมชาติ</h3>
+                        <p>4 รูปภาพ</p>
+                    </div>
+                </div>
+                
+                </div>
+        </div>
+    </section>
+
+    <div class="lightbox-modal" id="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <button class="lightbox-prev">&#10094;</button>
+        <button class="lightbox-next">&#10095;</button>
+        <div class="lightbox-content">
+            <img src="" alt="Lightbox image" id="lightbox-img">
+            <div class="lightbox-info">
+                <h3 class="lightbox-title" id="lightbox-title"></h3>
+                <p class="lightbox-counter" id="lightbox-counter"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Filter Functionality ---
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const photoItems = document.querySelectorAll('.photo-item');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.dataset.filter;
+                    
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    photoItems.forEach(item => {
+                        if (filter === 'all' || item.dataset.category === filter) {
+                            item.classList.remove('hide');
+                        } else {
+                            item.classList.add('hide');
+                        }
+                    });
+                });
+            });
+
+            // --- Lightbox Functionality ---
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxCounter = document.getElementById('lightbox-counter');
+            const closeBtn = lightbox.querySelector('.lightbox-close');
+            const prevBtn = lightbox.querySelector('.lightbox-prev');
+            const nextBtn = lightbox.querySelector('.lightbox-next');
+
+            let currentAlbumImages = [];
+            let currentIndex = 0;
+
+            photoItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const images = this.dataset.images.split(',').map(s => s.trim());
+                    const albumTitle = this.dataset.albumTitle;
+
+                    if (images.length > 0) {
+                        currentAlbumImages = images;
+                        currentIndex = 0;
+                        updateLightbox(albumTitle);
+                        lightbox.classList.add('show');
+                        document.body.style.overflow = 'hidden'; // ป้องกันการ scroll พื้นหลัง
+                    }
+                });
+            });
+
+            function updateLightbox(albumTitle) {
+                const totalImages = currentAlbumImages.length;
+                lightboxImg.src = currentAlbumImages[currentIndex];
+                lightboxTitle.textContent = albumTitle;
+                lightboxCounter.textContent = `${currentIndex + 1} / ${totalImages}`;
+
+                // ซ่อน/แสดงปุ่ม prev/next
+                prevBtn.style.display = totalImages > 1 ? 'block' : 'none';
+                nextBtn.style.display = totalImages > 1 ? 'block' : 'none';
+            }
+
+            function showNextImage() {
+                currentIndex = (currentIndex + 1) % currentAlbumImages.length;
+                updateLightbox(lightboxTitle.textContent);
+            }
+
+            function showPrevImage() {
+                currentIndex = (currentIndex - 1 + currentAlbumImages.length) % currentAlbumImages.length;
+                updateLightbox(lightboxTitle.textContent);
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('show');
+                document.body.style.overflow = 'auto'; // คืนค่าการ scroll
+            }
+
+            // Event Listeners for Lightbox
+            nextBtn.addEventListener('click', showNextImage);
+            prevBtn.addEventListener('click', showPrevImage);
+            closeBtn.addEventListener('click', closeLightbox);
+            
+            // ปิดเมื่อคลิกที่พื้นหลัง
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            // ควบคุมด้วยคีย์บอร์ด
+            document.addEventListener('keydown', (e) => {
+                if (lightbox.classList.contains('show')) {
+                    if (e.key === 'ArrowRight') showNextImage();
+                    if (e.key === 'ArrowLeft') showPrevImage();
+                    if (e.key === 'Escape') closeLightbox();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
