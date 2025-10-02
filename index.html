@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Teerapat Khanchom</title>
+    <title>Portfolio - Jedna Production</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -110,42 +110,6 @@
             fill: currentColor;
         }
         
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: rgba(10, 10, 10, 0.98);
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-            z-index: 1;
-            list-style: none;
-            border-radius: 8px;
-            margin-top: 5px;
-            overflow: hidden;
-        }
-
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-            transition: background-color 0.3s ease;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #ff6b35;
-            color: #000;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
         .hamburger-menu { display: none; }
         .nav-menu-container { display: none; }
 
@@ -253,16 +217,16 @@
                 transform: translateY(0); 
             } 
         }
-
-        /* Portfolio Grid */
+        
+        /* Portfolio Section */
         .portfolio { 
             padding: 100px 0; 
-            background: #0a0a0a; 
+            background: #111;
         }
-        .portfolio-link { 
-            text-decoration: none; 
-            color: inherit; 
-            display: block; 
+        .portfolio .container { 
+            max-width: 1200px;
+            margin: 0 auto; 
+            padding: 0 60px;
         }
         .section-title { 
             text-align: center; 
@@ -274,89 +238,106 @@
             -webkit-text-fill-color: transparent; 
             background-clip: text; 
         }
-        .portfolio-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 40px; 
-        }
-        .portfolio .container { 
-            max-width: 1500px; 
-            margin: 0 auto; 
-            padding: 0 40px; 
-        }
-        .portfolio-item { 
-            background: linear-gradient(135deg, #1a1a1a, #2a2a2a); 
-            border-radius: 15px; 
-            overflow: hidden; 
-            transition: all 0.3s ease; 
-            cursor: pointer; 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-        }
-        .portfolio-item:hover { 
-            transform: translateY(-10px); 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); 
-            border-color: #ff6b35; 
-        }
-        .portfolio-item img { 
-            width: 100%;
-            height: 300px; 
-            object-fit: cover; 
-            transition: transform 0.3s ease; 
-        }
-        .portfolio-item:hover img { 
-            transform: scale(1.05); 
-        }
-        .portfolio-content { 
-            padding: 25px; 
-        }
-        .portfolio-content h3 { 
-            font-size: 1.3rem; 
-            margin-bottom: 10px; 
-            color: #ffffff; 
-        }
-        .portfolio-content p { 
-            color: #cccccc; 
-            font-size: 0.9rem; 
-            margin-bottom: 15px; 
-        }
-        .portfolio-tags { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 8px; 
-        }
-        .tag { 
-            background: rgba(148, 73, 38, 0.2); 
-            color: #ff7c02; 
-            padding: 5px 12px; 
-            border-radius: 20px; 
-            font-size: 0.8rem; 
-            border: 1px solid rgba(255, 115, 0, 0.459); 
-        }
 
-        /* About Section */
         .about { 
-            padding: 100px 40px; 
-            background: #111; 
+            padding: 100px 0; 
+            background: #111;
         }
-        .about-content { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            text-align: center; 
+        .about .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
         }
-        .about-content h2 { 
-            font-size: clamp(2.5rem, 8vw, 4rem); 
-            margin-bottom: 40px; 
-            color: #fff; 
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            align-items: flex-start;
+            gap: 60px;
         }
-        .about-content p { 
-            font-size: 1.2rem; 
-            line-height: 1.8; 
-            color: #ccc; 
-            max-width: 800px; 
-            margin: 0 auto; 
+        .about-image-container {
+            width: 100%;
+            position: sticky;
+            top: 120px;
+        }
+        .about-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .about-info-container p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        .about-intro {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+        .about-subsection {
+            margin-top: 40px;
+        }
+        .about-subsection h3 {
+            font-size: 1.5rem;
+            color: #ff6b35;
+            margin-bottom: 20px;
+            border-left: 3px solid #ff6b35;
+            padding-left: 15px;
+        }
+        .experience-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .experience-list li {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .experience-list .highlight {
+            color: #ff6b35;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        .skills-category {
+            margin-bottom: 15px;
+        }
+        .skills-category h4 {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .skills-category p {
+            font-size: 1rem;
+            color: #ccc;
+            margin: 0;
+        }
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .contact-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .contact-links a:hover {
+            color: #ff6b35;
+        }
+        .contact-links svg {
+            width: 24px;
+            height: 24px;
         }
         
-        /* Scroll Animations */
         .fade-in { 
             opacity: 0; 
             transform: translateY(30px); 
@@ -366,8 +347,181 @@
             opacity: 1; 
             transform: translateY(0); 
         }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
 
-        /* --- START: Footer Section --- */
+        .portfolio-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 16 / 9;
+            background-color: #222;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.8);
+        }
+
+        .play-icon-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        
+        .portfolio-item:hover .play-icon-overlay {
+            opacity: 1;
+        }
+
+        .play-icon-overlay svg {
+            width: 60px;
+            height: 60px;
+            fill: rgba(255, 255, 255, 0.9);
+            filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.7));
+        }
+
+        .video-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 15px 15px 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+            color: #fff;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            pointer-events: none;
+        }
+
+        .video-title h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .portfolio-item:hover .video-title {
+            transform: translateY(0);
+        }
+        
+        /* === START: New Video Modal Styles === */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .video-modal.show {
+            opacity: 1;
+        }
+        
+        .video-modal .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1100px;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .modal-video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+        
+        .modal-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn:hover {
+            background: #ff6b35;
+        }
+
+        .close-btn::after {
+            content: '✕';
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .modal-info {
+            padding: 20px;
+            background: #111;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .modal-description {
+            color: #ccc;
+            line-height: 1.6;
+        }
+        /* === END: New Video Modal Styles === */
+
         .footer {
             background-color: #000;
             color: #ccc;
@@ -462,14 +616,11 @@
             padding-top: 30px;
             border-top: 1px solid #222;
         }
-
         .footer-bottom p {
             font-size: 0.8rem;
             color: #777;
         }
-        /* --- END: Footer Section --- */
-
-        /* --- START: Contact Modal Styles --- */
+        
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -478,7 +629,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
-            display: none; /* ซ่อนไว้ก่อน */
+            display: none;
             align-items: center;
             justify-content: center;
             z-index: 2000;
@@ -491,7 +642,7 @@
             opacity: 1;
         }
 
-        .modal-content {
+        .modal-overlay .modal-content {
             background: linear-gradient(135deg, #1f1f1f, #2b2b2b);
             padding: 40px;
             border-radius: 15px;
@@ -508,7 +659,7 @@
             transform: scale(1);
         }
 
-        .modal-content h3 {
+        .modal-overlay .modal-content h3 {
             font-size: 1.8rem;
             color: #fff;
             margin-bottom: 30px;
@@ -568,9 +719,7 @@
             font-size: 1.1rem;
             font-weight: 500;
         }
-        /* --- END: Contact Modal Styles --- */
 
-        /* --- Responsive Design --- */
         @media (max-width: 992px) {
             .nav {
                 padding: 15px 20px;
@@ -693,17 +842,22 @@
                 fill: currentColor;
             }
             
-            .portfolio { padding: 80px 20px; }
+            .portfolio { padding: 80px 0; }
             .portfolio .container { padding: 0 20px; }
-            .portfolio-grid { grid-template-columns: 1fr; gap: 30px; }
-            .portfolio-item { height: auto; }
-
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+            
             .about { padding: 80px 20px; }
+            .about .container { padding: 0; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-image-container { position: static; max-width: 350px; margin: 0 auto; }
+            .about-info-container { text-align: left; }
+            .section-title { text-align: center !important; }
 
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 50px;
-            }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 50px; }
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 600px) {
@@ -727,23 +881,15 @@
         
         <ul class="desktop-nav-links">
             <li><a href="#home">หน้าแรก</a></li>
-            <li><a href="#about">เกี่ยวกับ</a></li>
-            <li class="dropdown">
-                <a href="#portfolio" class="dropbtn">ผลงาน &#9662;</a>
-                <div class="dropdown-content">
-                    <a href="video_gallery.html">วีดิโอ</a>
-                    <a href="photography_gallery.html">ภาพนิ่ง</a>
-                    <a href="#">กราฟฟิค</a>
-                    <a href="#">ตัดต่อ</a>
-                </div>
-            </li>    
-            <li><a href="#contact">ติดต่อ</a></li>
+            <li><a href="#portfolio">ผลงาน</a></li>
+            <li><a href="#about">เกี่ยวกับ</a></li>    
+            <li><a href="#" class="js-open-contact-modal">ติดต่อ</a></li>
         </ul>
         <div class="desktop-social-links">
-            <a href="https://www.facebook.com/teerapat.khanchom" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.81C10.44 7.31 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10.01 10.01 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg></a>
-            <a href="https://www.instagram.com/kg_nov/" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg></a>
+            <a href="https://www.facebook.com/profile.php?id=61577887268334" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.81C10.44 7.31 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10.01 10.01 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg></a>
+            <a href="https://www.instagram.com/jedna.official/?theme=dark" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg></a>
             <a href="https://www.youtube.com/@jednagang" target="_blank" aria-label="Youtube"><svg viewBox="0 0 24 24"><path d="M10,15L15.19,12L10,9V15M21.56,7.17C21.69,7.64 21.78,8.27 21.84,9.08C21.91,9.87 21.94,10.56 21.94,11.16L22,12C22,14.19 21.84,15.8 21.56,16.83C21.31,17.73 20.73,18.31 19.83,18.56C19.36,18.69 18.73,18.78 17.92,18.84C17.13,18.91 16.44,18.94 15.84,18.94L15,19C12.81,19 11.2,18.84 10.17,18.56C9.27,18.31 8.69,17.73 8.44,16.83C8.31,16.36 8.22,15.73 8.16,14.92C8.09,14.13 8.06,13.44 8.06,12.84L8,12C8,9.81 8.16,8.2 8.44,7.17C8.69,6.27 9.27,5.69 10.17,5.44C11.2,5.16 12.81,5 15,5L15.84,5.06C16.44,5.06 17.13,5.09 17.92,5.16C18.73,5.22 19.36,5.31 19.83,5.44C20.73,5.69 21.31,6.27 21.56,7.17Z"/></svg></a>
-            <a href="https://www.tiktok.com/@lilkong14" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6,6.22C16.6,8.26 15.19,10.04 13.3,10.45V16.76C13.3,18.9 11.58,20.71 9.53,20.71C7.48,20.71 5.76,18.9 5.76,16.76C5.76,14.62 7.48,12.82 9.53,12.82C9.84,12.82 10.15,12.86 10.44,12.94V10.18C10.44,10.1 10.4,10.03 10.32,9.99C6.6,8.31 4.28,4.55 4.88,0.73C4.91,0.53 5.04,0.34 5.22,0.23C5.4,0.13 5.62,0.1 5.82,0.15C9.9,1.16 11.45,4.61 11.58,6.85C11.58,6.96 11.68,7.06 11.8,7.06C12,7.06 12.2,7.05 12.39,7.03C14.7,6.58 16.6,6.22 16.6,6.22Z"/></svg></a>
+            <a href="https://www.tiktok.com/@jednagang" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6,6.22C16.6,8.26 15.19,10.04 13.3,10.45V16.76C13.3,18.9 11.58,20.71 9.53,20.71C7.48,20.71 5.76,18.9 5.76,16.76C5.76,14.62 7.48,12.82 9.53,12.82C9.84,12.82 10.15,12.86 10.44,12.94V10.18C10.44,10.1 10.4,10.03 10.32,9.99C6.6,8.31 4.28,4.55 4.88,0.73C4.91,0.53 5.04,0.34 5.22,0.23C5.4,0.13 5.62,0.1 5.82,0.15C9.9,1.16 11.45,4.61 11.58,6.85C11.58,6.96 11.68,7.06 11.8,7.06C12,7.06 12.2,7.05 12.39,7.03C14.7,6.58 16.6,6.22 16.6,6.22Z"/></svg></a>
         </div>
         
         <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle menu">
@@ -760,101 +906,205 @@
         <li><a href="#home">หน้าแรก</a></li>
         <li><a href="#portfolio">ผลงาน</a></li>
         <li><a href="#about">เกี่ยวกับ</a></li>
-        <li><a href="#contact">ติดต่อ</a></li>
+        <li><a href="#" class="js-open-contact-modal">ติดต่อ</a></li>
     </ul>
     <div class="mobile-social-links">
-        <a href="https://www.facebook.com/teerapat.khanchom" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.81C10.44 7.31 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10.01 10.01 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg></a>
-        <a href="https://www.instagram.com/kg_nov/" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg></a>
+        <a href="https://www.facebook.com/profile.php?id=61577887268334" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.81C10.44 7.31 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10.01 10.01 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg></a>
+        <a href="https://www.instagram.com/jedna.official/?theme=dark" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg></a>
         <a href="https://www.youtube.com/@jednagang" target="_blank" aria-label="Youtube"><svg viewBox="0 0 24 24"><path d="M10,15L15.19,12L10,9V15M21.56,7.17C21.69,7.64 21.78,8.27 21.84,9.08C21.91,9.87 21.94,10.56 21.94,11.16L22,12C22,14.19 21.84,15.8 21.56,16.83C21.31,17.73 20.73,18.31 19.83,18.56C19.36,18.69 18.73,18.78 17.92,18.84C17.13,18.91 16.44,18.94 15.84,18.94L15,19C12.81,19 11.2,18.84 10.17,18.56C9.27,18.31 8.69,17.73 8.44,16.83C8.31,16.36 8.22,15.73 8.16,14.92C8.09,14.13 8.06,13.44 8.06,12.84L8,12C8,9.81 8.16,8.2 8.44,7.17C8.69,6.27 9.27,5.69 10.17,5.44C11.2,5.16 12.81,5 15,5L15.84,5.06C16.44,5.06 17.13,5.09 17.92,5.16C18.73,5.22 19.36,5.31 19.83,5.44C20.73,5.69 21.31,6.27 21.56,7.17Z"/></svg></a>
-        <a href="https://www.tiktok.com/@lilkong14" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6,6.22C16.6,8.26 15.19,10.04 13.3,10.45V16.76C13.3,18.9 11.58,20.71 9.53,20.71C7.48,20.71 5.76,18.9 5.76,16.76C5.76,14.62 7.48,12.82 9.53,12.82C9.84,12.82 10.15,12.86 10.44,12.94V10.18C10.44,10.1 10.4,10.03 10.32,9.99C6.6,8.31 4.28,4.55 4.88,0.73C4.91,0.53 5.04,0.34 5.22,0.23C5.4,0.13 5.62,0.1 5.82,0.15C9.9,1.16 11.45,4.61 11.58,6.85C11.58,6.96 11.68,7.06 11.8,7.06C12,7.06 12.2,7.05 12.39,7.03C14.7,6.58 16.6,6.22 16.6,6.22Z"/></svg></a>
+        <a href="https://www.tiktok.com/@jednagang" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6,6.22C16.6,8.26 15.19,10.04 13.3,10.45V16.76C13.3,18.9 11.58,20.71 9.53,20.71C7.48,20.71 5.76,18.9 5.76,16.76C5.76,14.62 7.48,12.82 9.53,12.82C9.84,12.82 10.15,12.86 10.44,12.94V10.18C10.44,10.1 10.4,10.03 10.32,9.99C6.6,8.31 4.28,4.55 4.88,0.73C4.91,0.53 5.04,0.34 5.22,0.23C5.4,0.13 5.62,0.1 5.82,0.15C9.9,1.16 11.45,4.61 11.58,6.85C11.58,6.96 11.68,7.06 11.8,7.06C12,7.06 12.2,7.05 12.39,7.03C14.7,6.58 16.6,6.22 16.6,6.22Z"/></svg></a>
     </div>
 </div>
 
     <section class="hero" id="home">
         <div class="hero-slideshow">
-            <div class="slide" style="background-image: url('https://i.ibb.co/TDMk8STf/NOT04599.png');"></div>
-            <div class="slide" style="background-image: url('https://i.ibb.co/jPttsf6X/DSC08081.jpg');"></div>
-            <div class="slide" style="background-image: url('https://images.pexels.com/photos/269343/pexels-photo-269343.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');"></div>
+            <div class="slide" style="background-image: url('https://i.ibb.co/WWh5SFzX/1.png');"></div>
+            <div class="slide" style="background-image: url('https://i.ibb.co/gMd75cgB/2.png');"></div>
+            <div class="slide" style="background-image: url('https://i.ibb.co/6R3bwZft/3.png');"></div>
             <div class="slide" style="background-image: url('https://images.pexels.com/photos/1117132/pexels-photo-1117132.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');"></div>
         </div>
 
         <div class="hero-content">
-            <h1>Teerapat Khanchom</h1>
-            <p>รวมผลงานของก้องล่า</p>
+            <h1>Jedna Production</h1>
+            <p>ผลงานสร้างสรรค์โดยทีมโปรดักชัน</p>
             <a href="#portfolio" class="cta-button">ดูผลงาน</a>
         </div>
     </section>
 
-    <section id="portfolio" class="portfolio">
+<section id="portfolio" class="portfolio">
         <div class="container">
-            <h2 class="section-title fade-in">รวมผลงาน</h2>
+            <h2 class="section-title fade-in">รวมผลงานวีดีโอ</h2>
+
             <div class="portfolio-grid">
-                <div class="portfolio-item fade-in"><a href="video_gallery.html" class="portfolio-link"><img src="https://i.ibb.co/F43B04Ny/Screenshot-2025-09-03-005728.png" alt="Commercial Video"><div class="portfolio-content">
-                    <h3>วีดิโอ</h3>
-                    <p>ข่อยชื่อนินจาพร้อมละเลงงานวีดิโอให้เจ้า แต่กูถ่ายอย่างเดียวบ่ตัดให้เว้ยเอื้อ!!!</p>
-                    <div class="portfolio-tags"><span class="tag">โฆษณา</span>
-                        <span class="tag">แบรนดิ้ง</span>
-                        <span class="tag">การตลาด</span>
+                <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/13M3oj59zjmQSox5xbmzC40GLJj_a14oW/view?usp=sharing')">
+                    <img src="https://i.ibb.co/m5x5Wrz7/Screenshot-2025-10-02-185144.png"" alt="Video Thumbnail 1">
+                    <div class="play-icon-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
                     </div>
+                    <div class="video-title"><h3>Who I AM</h3></div>
                 </div>
-            </a>
-        </div>
-                <div class="portfolio-item fade-in"><a href="photography_gallery.html" class="portfolio-link"><img src="https://i.ibb.co/GQMhD6jR/535241590-1293635825698600-7415056638053127963-n.jpg" alt="Music Video"><div class="portfolio-content">
-                    <h3>ภาพนิ่ง</h3>
-                    <p>แต่งมาโลดกูถ่ายให้ได้เบิ่ดล่ะ เด๊ะเจอน้องน็อตช่างภาพมักถ่าย</p>
-                    <div class="portfolio-tags">
-                        <span class="tag">บุคคล</span>
-                        <span class="tag">สินค้า</span>
-                        <span class="tag">อีเวนต์</span>
+                <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/1a5Dg2Zw6vtXuCHyEZTu4ee00qEMVuNJI/view?usp=sharing')">
+                    <img src="https://i.ibb.co/yc8W7Rwj/2-1-12-1.jpg" alt="Video Thumbnail 2">
+                     <div class="play-icon-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
                     </div>
+                    <div class="video-title"><h3>ภาพความทรงจำ</h3></div>
                 </div>
-            </a>
-        </div>
-                <div class="portfolio-item fade-in"><a href="#" class="portfolio-link"><img src="https://i.ibb.co/4w3SDRTP/93caf7e4-e815-4148-a61d-7446516049c6.jpg" 
-                    alt="Documentary">
-                    <div class="portfolio-content">
-                        <h3>กราฟฟิค</h3>
-                        <p>แต่งกูมาโลด บรีฟให้มันดีๆนำ สุดท้ายมึงกะเอาดราฟแรก</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">ออกแบบ</span>
-                            <span class="tag">โลโก้</span>
-                            <span class="tag">ออนไลน์</span>
-                        </div>
+                <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/19umF3TvkMKu85OwO0aGhGexykmailJHr/view?usp=sharing')">
+                    <img src="https://i.ibb.co/n8NScPvh/Untitled-1.jpg" alt="Video Thumbnail 3">
+                     <div class="play-icon-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
                     </div>
-                </a>
-            </div>
-                <div class="portfolio-item fade-in"><a href="#" class="portfolio-link"><img src="https://i.ibb.co/C5bWn153/A7M09805.jpg" 
-                    alt="Corporate Video">
-                    <div class="portfolio-content">
-                        <h3>ตัดต่อ</h3>
-                        <p>ข่อยชื่อทิว เรียนแท็กเกม ตัดคลิปบ่เป็น ใช้เพมเพลต CapCut ท่อนั่น</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">ตัดต่อ</span>
-                            <span class="tag">เกรดสี</span>
-                            <span class="tag">VFX</span>
-                        </div>
+                    <div class="video-title"><h3>รณรงค์สุขภาพ</h3></div>
+                </div>
+                <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/1skYrEmJmsHnhhRIVdqEfsmewmCKwyAd6/view?usp=sharing')">
+                    <img src="https://i.ibb.co/qFWrPNG9/Untitled-2.jpg" alt="Video Thumbnail 4">
+                     <div class="play-icon-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
                     </div>
-                </a>
-            </div>
+                    <div class="video-title"><h3>หนี้นอกระบบ | Short Film</h3></div>
+                </div>
+                <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/1xLQnr_90aoEc6AZ0wYtH5Hw7q1sYv9WW/view?usp=sharing')">
+                    <img src="https://i.ibb.co/DD5KK1N3/Screenshot-2025-10-02-190849.png" alt="Video Thumbnail 5">
+                     <div class="play-icon-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
+                    </div>
+                    <div class="video-title"><h3>บักหล่า | Short Film</h3></div>
+                </div>
+                <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/1WIeVpmtnPuG7XSAr8VHxSDhEEmxT6bwf/view?usp=sharing')">
+                    <img src="https://i.ibb.co/kgk72nc7/image.png" alt="Video Thumbnail 6">
+                     <div class="play-icon-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
+                    </div>
+                    <div class="video-title"><h3>Last Bout | Short Film</h3></div>
+                </div>
+                <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/1PX20aLE_P4Gpp-eGnX__E5o1g303SN95/view?usp=sharing')">
+                    <img src="https://i.ibb.co/tptW6T8F/Screenshot-2025-10-02-191930.png" alt="Video Thumbnail 7">
+                     <div class="play-icon-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
+                    </div>
+                    <div class="video-title"><h3>Cover Music Video</h3></div>
+                </div>
+                <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/1AMh4GgJLJNUdykEIgxSyC-7rZEcoD4_8/view?usp=sharing')">
+                    <img src="https://i.ibb.co/j9C5QcVY/Untitled-3.jpg" alt="Video Thumbnail 8">
+                     <div class="play-icon-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
+                    </div>
+                    <div class="video-title"><h3>โฆษณา ซอสภูเขาทอง</h3></div>
+                </div>
+                <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/1LZ4h1TWXzZuTsaddahDgneLeijJoZOzg/view?usp=sharing')">
+                    <img src="https://i.ibb.co/qMmC5Xz1/Screenshot-2025-10-02-193022.png" alt="Video Thumbnail 9">
+                     <div class="play-icon-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
+                    </div>
+                    <div class="video-title"><h3>พบรัก Unofficial MV</h3></div>
+                </div>
+                <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/1r_e_yqxMOdrz_squ3FafcVPOUl30WLlW/view?usp=sharing')">
+                    <img src="https://i.ibb.co/JwgkVKXL/Screenshot-2025-10-02-201458.png" alt="Video Thumbnail 10">
+                     <div class="play-icon-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
+                    </div>
+                    <div class="video-title"><h3>เดินมาส่ง (unofficial)</h3></div>
+                </div>
+               <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/1r_e_yqxMOdrz_squ3FafcVPOUl30WLlW/view?usp=sharing')">
+    <img src="https://i.ibb.co/39WrFzNR/FINAL.png" alt="Video Thumbnail 11">
+     <div class="play-icon-overlay">
+        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
+    </div>
+    <div class="video-title"><h3>สารคดี บ้านหลังสุดท้าย</h3></div> </div>
+
+               <div class="portfolio-item fade-in" onclick="openVideoModal('https://drive.google.com/file/d/1guvN98OQkA-BA53GEo7gCfgh9aopBCQF/view?usp=sharing')">
+    <img src="https://i.ibb.co/pvjJgq95/Untitled-4.jpg" alt="Video Thumbnail 12">
+     <div class="play-icon-overlay">
+        <svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg>
+    </div>
+    <div class="video-title"><h3>Airplane Mode (Unofficial)</h3></div>
+</div>
             </div>
         </div>
     </section>
-    <section class="about" id="about"><div class="about-content fade-in"><h2>เกี่ยวกับเรา</h2>
-        <p>เราคือทีมโปรดักชั่นรุ่นใหม่ที่เต็มเปี่ยมไปด้วยความคิดสร้างสรรค์และความมุ่งมั่น เราเชี่ยวชาญในการผลิตสื่อดิจิทัลครบวงจร ตั้งแต่การวางแผน, การถ่ายทำ, ไปจนถึงขั้นตอนสุดท้ายของการตัดต่อ เพื่อสร้างผลงานที่มีคุณภาพและตอบโจทย์ความต้องการของคุณ
-        </p></div></section>
+
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <div class="modal-controls">
+                <button class="modal-btn close-btn" onclick="closeVideoModal()"></button>
+            </div>
+            <div class="modal-video-wrapper">
+                <iframe id="modalIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="modal-info">
+                <h3 class="modal-title" id="modalTitle"></h3>
+                <p class="modal-description" id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+    <section class="about" id="about">
+        <div class="container fade-in">
+            <div class="about-grid">
+                <div class="about-image-container">
+                    <img src="https://i.ibb.co/FqzzGDz1/logo-jedna.png" alt="Teerapat Khanchom Profile">
+                </div>
     
+                <div class="about-info-container">
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 25px;">เกี่ยวกับเรา</h2>
+                    
+                    <p class="about-intro">
+                        <strong>พวกเราคือ Jedna Production</strong> กลุ่มนักศึกษาจากมหาวิทยาลัยมหาสารคาม ที่รวมตัวกันเพราะชอบการทำหนังและการเล่าเรื่องผ่านภาพ ไม่ว่าจะเป็นหนังสั้น สารคดี หรือโฆษณา พวกเราสนุกกับการลองผิดลองถูกและอยากทำให้ผลงานออกมาดีที่สุด
+                    </p>
+                    <p>
+                        เราเชื่อว่าภาพและเสียงสามารถถ่ายทอดความรู้สึกให้คนดูอินไปกับเรื่องราวได้ ทีมของเราจึงตั้งใจพัฒนาฝีมือไปเรื่อยๆ จากประสบการณ์เล็กๆ ที่ได้ทำ จนหวังว่าสักวันจะสร้างผลงานที่คนดูแล้วจดจำได้
+                    </p>
+    
+                    <div class="about-subsection">
+                        <h3>ประสบการณ์</h3>
+                        <ul class="experience-list">
+                            <li><span class="highlight">&#10003;</span> เคยเป็นส่วนหนึ่งของทีมงาน Stardust Production</a></li>
+                            <li><span class="highlight">&#10003;</span> ร่วมงานและผลิตในหนังสั้นมากกว่า 10 เรื่อง</li>
+                            <li><span class="highlight">&#10003;</span> มีประสบการณ์ทำหนังสั้น โฆษณา สารคดีและงานโปรดักชั่นอื่นๆ</li>
+                        </ul>
+                    </div>
+    
+                    <div class="about-subsection">
+                        <h3>ทักษะ (Skills)</h3>
+                        <div class="skills-category">
+                            <h4>ซอฟต์แวร์:</h4>
+                            <p>Premiere Pro, Photoshop, Lightroom, Illustrator, DaVinci Resolve</p>
+                        </div>
+                        <div class="skills-category">
+                            <h4>งานโปรดักชั่น:</h4>
+                            <p>กำกับภาพ, จัดไฟ, วางแผนการถ่ายทำ, งานตัดต่อ และดูแลโปรเจกต์ในภาพรวม</p>
+                        </div>
+                    </div>
+    
+                    <div class="about-subsection">
+                         <h3>Contact</h3>
+                         <div class="contact-links">
+                            <a href="mailto:jedna.official@gmail.com">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5l-8-5h16zm0 12H4V8l8 5l8-5v10z"/></svg>
+            jedna.official@gmail.com
+        </a>
+                            <a href="tel:0988788103">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24c1.12.37 2.33.57 3.57.57c.55 0 1 .45 1 1V20c0 .55-.45 1-1 1c-9.39 0-17-7.61-17-17c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1c0 1.25.2 2.45.57 3.57c.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            098-878-8103
+        </a>
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </section>
     <footer class="footer" id="contact">
         <div class="footer-container fade-in">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <a href="#home" class="footer-logo">Teerapat Khanchom</a>
-                    <button id="contactModalBtn" class="footer-cta-button js-open-contact-modal">ติดต่อเรา</button>
+                    <a href="#home" class="footer-logo">JEDNA PRODUCTION</a>
+                    <button class="footer-cta-button js-open-contact-modal">ติดต่อเรา</button>
                     <a href="#portfolio" class="footer-small-link">ดูผลงานทั้งหมด</a>
                 </div>
 
                 <div class="footer-column">
                     <h4>ข้อมูลติดต่อ</h4>
-                    <p>kongteeraput2548@gmail.com</p>
+                    <p>jedna.official@gmail.com</p>
                     <p>โทร: 098-878-8103</p>
                     <p>Line: kongteeraput132</p>
                 </div>
@@ -872,10 +1122,10 @@
                 <div class="footer-column">
                     <h4>ติดตามเรา</h4>
                     <ul>
-                        <li><a href="https://www.facebook.com/teerapat.khanchom" target="_blank">Facebook</a></li>
-                        <li><a href="https://www.instagram.com/kg_nov/" target="_blank">Instagram</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=61577887268334" target="_blank">Facebook</a></li>
+                        <li><a href="https://www.instagram.com/jedna.official/?theme=dark" target="_blank">Instagram</a></li>
                         <li><a href="https://www.youtube.com/@jednagang" target="_blank">Youtube</a></li>
-                        <li><a href="https://www.tiktok.com/@lilkong14" target="_blank">TikTok</a></li>
+                        <li><a href="https://www.tiktok.com/@jednagang" target="_blank">TikTok</a></li>
                     </ul>
                 </div>
             </div>
@@ -890,11 +1140,11 @@
             <button class="modal-close-btn">&times;</button>
             <h3>ช่องทางการติดต่อ</h3>
             <div class="modal-contact-links">
-                <a href="https://www.facebook.com/teerapat.khanchom" target="_blank" class="contact-option">
+                <a href="https://www.facebook.com/profile.php?id=61577887268334" target="_blank" class="contact-option">
                     <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.81C10.44 7.31 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10.01 10.01 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
                     <span>Facebook</span>
                 </a>
-                <a href="https://www.instagram.com/kg_nov/" target="_blank" class="contact-option">
+                <a href="https://www.instagram.com/jedna.official/?theme=dark" target="_blank" class="contact-option">
                     <svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg>
                     <span>Instagram</span>
                 </a>
@@ -910,12 +1160,24 @@
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    if (!this.classList.contains('js-open-contact-modal') && !this.closest('.dropdown-content')) {
+                    if (this.getAttribute('href') !== '#' && !this.closest('.dropdown-content')) {
                         e.preventDefault();
+                        
+                        const navMenuContainer = document.getElementById('navMenuContainer');
+                        if (navMenuContainer.classList.contains('open')) {
+                            closeMobileMenu();
+                        }
+
                         const targetId = this.getAttribute('href');
                         const target = document.querySelector(targetId);
                         if (target) {
-                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            const navHeight = document.querySelector('.nav').offsetHeight;
+                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                            
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
                         }
                     }
                 });
@@ -943,23 +1205,26 @@
                 }
             });
             
-            // --- START: โค้ดสำหรับเมนูบนมือถือ ---
+            // --- Mobile Menu Logic ---
             const hamburgerMenu = document.getElementById('hamburgerMenu');
             const navMenuContainer = document.getElementById('navMenuContainer');
-            const navLinksInMenu = navMenuContainer.querySelectorAll('a');
             const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const navLinksInMenu = navMenuContainer.querySelectorAll('a');
 
             function openMobileMenu() {
                 navMenuContainer.classList.add('open');
                 hamburgerMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
             }
 
             function closeMobileMenu() {
                 navMenuContainer.classList.remove('open');
                 hamburgerMenu.classList.remove('open');
+                document.body.style.overflow = '';
             }
 
-            hamburgerMenu.addEventListener('click', function() {
+            hamburgerMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
                 if (navMenuContainer.classList.contains('open')) {
                     closeMobileMenu();
                 } else {
@@ -970,52 +1235,85 @@
             closeMenuBtn.addEventListener('click', closeMobileMenu);
             
             navLinksInMenu.forEach(link => {
-                link.addEventListener('click', closeMobileMenu);
-            });
-
-            document.addEventListener('click', function(event) {
-                const isClickInsideMenu = navMenuContainer.contains(event.target);
-                const isClickOnHamburger = hamburgerMenu.contains(event.target);
-
-                if (navMenuContainer.classList.contains('open') && !isClickInsideMenu && !isClickOnHamburger) {
-                    closeMobileMenu();
+                if (!link.closest('.mobile-social-links')) {
+                    link.addEventListener('click', closeMobileMenu);
                 }
             });
 
-            // --- START: โค้ดสำหรับ Contact Modal ---
+            // --- Contact Modal Logic ---
             const contactModal = document.getElementById('contactModal');
             const allOpenModalBtns = document.querySelectorAll('.js-open-contact-modal');
             const closeModalBtn = contactModal.querySelector('.modal-close-btn');
 
-            // Function สำหรับเปิด Modal
-            function openContactModal() {
+            function openContactModal(e) {
+                e.preventDefault();
                 contactModal.classList.add('visible');
             }
 
-            // Function สำหรับปิด Modal
             function closeContactModal() {
                 contactModal.classList.remove('visible');
             }
 
-            // เพิ่ม Event Listener ให้กับทุกปุ่มที่ไว้เปิด Modal
             allOpenModalBtns.forEach(btn => {
-                btn.addEventListener('click', function(event) {
-                    event.preventDefault(); // ป้องกันหน้าเว็บเลื่อน
-                    openContactModal();
-                });
+                btn.addEventListener('click', openContactModal);
             });
 
-            // เมื่อคลิกที่ปุ่มปิด (X)
             closeModalBtn.addEventListener('click', closeContactModal);
 
-            // เมื่อคลิกที่พื้นหลังสีดำ (นอกกรอบ Modal)
             contactModal.addEventListener('click', function(event) {
                 if (event.target === contactModal) {
                     closeContactModal();
                 }
             });
-            // --- END: Contact Modal ---
         });
+        
+        // === START: NEW VIDEO MODAL SCRIPT ===
+        function openVideoModal(videoSrc, title, description) {
+            const modal = document.getElementById('videoModal');
+            const modalIframe = document.getElementById('modalIframe');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+
+            let embedSrc = '';
+
+            if (videoSrc.includes("drive.google.com")) {
+                const fileId = videoSrc.split('/d/')[1].split('/')[0];
+                embedSrc = "https://drive.google.com/file/d/" + fileId + "/preview";
+            } else {
+                embedSrc = videoSrc;
+            }
+
+            modalIframe.src = embedSrc;
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show'), 10);
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const modalIframe = document.getElementById('modalIframe');
+
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modalIframe.src = ""; // Stop video playback
+            }, 300);
+        }
+
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target.classList.contains('video-modal')) { // Close only if clicking on the overlay
+                 closeVideoModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
+        // === END: NEW VIDEO MODAL SCRIPT ===
     </script>
 </body>
 </html>
